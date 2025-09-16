@@ -256,6 +256,10 @@
 
 /obj/item/mod/module/anomaly_locked/kinesis/prototype
 	name = "\improper MOD prototype kinesis module"
+	desc = "A permanent fixture to the forearm, this lost piece of technology \
+		allows the user to generate precise anti-gravity fields, \
+		letting them move objects as small as a titanium rod to as large as industrial machinery. \
+		It is unusually power-hungry, and it doesn't seem to work on living creatures."
 	prebuilt = TRUE
 	complexity = 0
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
