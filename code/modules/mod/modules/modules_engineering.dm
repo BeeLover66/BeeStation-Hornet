@@ -2,7 +2,7 @@
 
 ///Welding Protection - Makes the helmet protect from flashes and welding.
 /obj/item/mod/module/welding
-	name = "MOD welding protection module"
+	name = "\improper MOD welding protection module"
 	desc = "A module installed into the visor of the suit, this projects a \
 		polarized, holographic overlay in front of the user's eyes. It's rated high enough for \
 		immunity against extremities such as spot and arc welding, solar eclipses, and handheld flashlights."
@@ -27,7 +27,7 @@
 
 ///T-Ray Scan - Scans the terrain for undertile objects.
 /obj/item/mod/module/t_ray
-	name = "MOD t-ray scan module"
+	name = "\improper MOD t-ray scan module"
 	desc = "A module installed into the visor of the suit, allowing the user to use a pulse of terahertz radiation \
 		to essentially echolocate things beneath the floor, mostly cables and pipes. \
 		A staple of atmospherics work, and counter-smuggling work."
@@ -45,7 +45,7 @@
 
 ///Magnetic Stability - Gives the user a slowdown but makes them negate gravity and be immune to slips.
 /obj/item/mod/module/magboot
-	name = "MOD magnetic stability module"
+	name = "\improper MOD magnetic stability module"
 	desc = "These are powerful electromagnets fitted into the suit's boots, allowing users both \
 		excellent traction no matter the condition indoors, and to essentially hitch a ride on the exterior of a hull. \
 		However, these basic models do not feature computerized systems to automatically toggle them on and off, \
@@ -81,7 +81,7 @@
 		module_slowdowns += slowdown_active
 
 /obj/item/mod/module/magboot/advanced
-	name = "MOD advanced magnetic stability module"
+	name = "\improper MOD advanced magnetic stability module"
 	removable = FALSE
 	complexity = 0
 	slowdown_active = 0
