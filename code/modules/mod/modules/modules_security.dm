@@ -3,7 +3,7 @@
 ///Magnetic Harness - Automatically puts guns in your suit storage when you drop them.
 /obj/item/mod/module/magnetic_harness
 	name = "\improper MOD magnetic harness module"
-	desc = "Based on old TerraGov harness kits, this magnetic harness automatically attaches dropped guns back to the wearer."
+	desc = "Based off old TerraGov harness kits, this magnetic harness automatically attaches dropped guns back to the wearer."
 	icon_state = "mag_harness"
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN
@@ -102,7 +102,7 @@
 ///Holster - Instantly holsters any not huge gun.
 /obj/item/mod/module/holster
 	name = "\improper MOD holster module"
-	desc = "Based on typical storage compartments, this system allows the suit to holster a \
+	desc = "Based off typical storage compartments, this system allows the suit to holster a \
 		standard firearm across its surface and allow for extremely quick retrieval. \
 		While some users prefer the chest, others the forearm for quick deployment, \
 		some law enforcement prefer the holster to extend from the thigh."
