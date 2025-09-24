@@ -1,6 +1,15 @@
 
 /// Egg stuff crafting
 
+/datum/crafting_recipe/food/sausageegg
+	name = "Egg with sausage"
+	reqs = list(
+		/obj/item/food/sausage = 1,
+		/obj/item/food/friedegg = 1
+	)
+	result = /obj/item/food/eggsausage
+	category = CAT_EGG
+
 /datum/crafting_recipe/food/omelette
 	name = "Omelette du fromage"
 	result = /obj/item/food/omelette

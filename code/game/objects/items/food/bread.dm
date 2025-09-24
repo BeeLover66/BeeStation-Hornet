@@ -116,6 +116,33 @@
 	foodtypes = GRAIN | MEAT
 	crafting_complexity = FOOD_COMPLEXITY_3
 
+/obj/item/food/bread/sausage
+	name = "sausagebread loaf"
+	desc = "Don't think too much about it."
+	icon_state = "sausagebread"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 20,
+		/datum/reagent/consumable/nutriment/vitamin = 10,
+		/datum/reagent/consumable/nutriment/protein = 12
+	)
+	tastes = list("bread" = 10, "meat" = 10)
+	foodtypes = GRAIN | MEAT
+	slice_type = /obj/item/food/breadslice/sausage
+	crafting_complexity = FOOD_COMPLEXITY_3
+
+/obj/item/food/breadslice/sausage
+	name = "sausagebread slice"
+	desc = "A slice of delicious sausagebread."
+	icon_state = "sausagebreadslice"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/consumable/nutriment/protein = 2.4
+	)
+	tastes = list("bread" = 10, "sausage" = 10)
+	foodtypes = GRAIN | MEAT
+	crafting_complexity = FOOD_COMPLEXITY_3
+
 /obj/item/food/bread/xenomeat
 	name = "xenomeatbread loaf"
 	desc = "Extra Heretical."
