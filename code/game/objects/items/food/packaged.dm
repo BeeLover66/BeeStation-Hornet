@@ -71,6 +71,18 @@
 	tastes = list("peaches" = 7, "tin" = 1)
 	foodtypes = FRUIT | SUGAR
 
+/obj/item/food/canned/tomatoes
+	name = "can of San Marzano tomatoes"
+	desc = "A can of premium San Marzano tomatoes, grown in the rich soil of volcanic hills."
+	icon_state = "tomato"
+	trash_type = /obj/item/trash/canned/tomatoes
+	food_reagents = list(
+		/datum/reagent/consumable/tomatojuice = 20,
+		/datum/reagent/consumable/sodiumchloride = 2
+	)
+	tastes = list("tomato" = 7, "tin" = 1)
+	foodtypes = VEGETABLES
+
 /obj/item/food/canned/beefbroth
 	name = "can of beef stew"
 	desc = "Beef on a pinch, an aquired taste really."
@@ -104,6 +116,12 @@
 	desc = "I have a mouth and I must eat."
 	trash_type = /obj/item/trash/canned/peaches/maint
 	tastes = list("peaches" = 1, "tin" = 7)
+
+/obj/item/food/canned/tomatoes/maint
+	maint = TRUE
+	desc = "Old tomatoes, ripened by years of sitting in a tin can."
+	trash_type = /obj/item/trash/canned/tomatoes/maint
+	tastes = list("tomato" = 1, "tin" = 7)
 
 /obj/item/food/canned/beefbroth/maint
 	desc = "Really old beef on a pinch, a gamble really."
