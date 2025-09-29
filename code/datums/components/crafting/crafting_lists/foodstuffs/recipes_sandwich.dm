@@ -56,3 +56,14 @@
 		/obj/item/food/sausage = 1
 	)
 	category = CAT_SANDWICH
+
+/datum/crafting_recipe/food/blt
+	name = "BLT"
+	reqs = list(
+		/obj/item/food/breadslice/plain = 2,
+		/obj/item/food/meat/bacon = 2,
+		/obj/item/food/grown/cabbage = 1,
+		/obj/item/food/grown/tomato = 1
+	)
+	result = /obj/item/food/blt
+	category = CAT_SANDWICH
