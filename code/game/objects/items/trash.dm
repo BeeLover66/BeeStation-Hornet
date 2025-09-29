@@ -119,13 +119,6 @@
 /obj/item/trash/canned/peaches/maint
 	maint = TRUE
 
-/obj/item/trash/canned/tomatoes
-	name = "can of San Marzano tomatoes"
-	icon_state = "tomato_empty"
-
-/obj/item/trash/canned/tomatoes/maint
-	maint = TRUE
-
 /obj/item/trash/canned/beefbroth
 	name = "can of beef stew"
 	icon_state = "beef_empty"

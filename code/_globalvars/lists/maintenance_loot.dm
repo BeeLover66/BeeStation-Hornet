@@ -74,7 +74,6 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/radio/off = 2,
 	/obj/item/reagent_containers/cup/glass/bottle/homemaderum = 1,
 	/obj/item/food/canned/peaches/maint = 1,
-	/obj/item/food/canned/tomatoes/maint = 1,
 	/obj/item/food/grown/citrus/orange = 1,
 	/obj/item/food/grown/flower/poppy = 10,
 	/obj/item/reagent_containers/cup/rag = 3,
