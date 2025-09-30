@@ -70,20 +70,28 @@
 	reagents.expose(hit_atom, TOUCH)
 	qdel(src)
 
-/obj/item/food/egg/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = W
+/obj/item/food/egg/attackby(obj/item/item, mob/user, params)
+	if(istype(item, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/C = item
 		var/clr = C.crayon_color
 
 		if(!(clr in list("blue", "green", "mime", "orange", "purple", "rainbow", "red", "yellow")))
 			to_chat(usr, span_notice("[src] refuses to take on this colour!"))
 			return
 
-		to_chat(usr, span_notice("You colour [src] with [W]."))
+		to_chat(usr, span_notice("You colour [src] with [item]."))
 		icon_state = "egg-[clr]"
 
-	else if(is_reagent_container(W))
-		var/obj/item/reagent_containers/dunk_test_container = W
+	else if (istype(item, /obj/item/stamp/clown))
+		var/clowntype = pick(
+			"grock", "grimaldi", "rainbow", "chaos", "joker", "sexy", "standard", "bobble",
+			"krusty", "bozo", "pennywise", "ronald", "jacobs", "kelly", "popov", "cluwne")
+		icon_state = "egg-clown-[clowntype]"
+		desc = "An egg that has been decorated with the grotesque, punchable likeness of a clown's face."
+		to_chat(usr, span_notice("You stamp [src] with [item], creating an artistic and not at all horrifying likeness of clown makeup"))
+
+	else if(is_reagent_container(item))
+		var/obj/item/reagent_containers/dunk_test_container = item
 		if (!dunk_test_container.is_drainable() || !dunk_test_container.reagents.has_reagent(/datum/reagent/water))
 			return
 
