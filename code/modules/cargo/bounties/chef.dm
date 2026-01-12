@@ -183,3 +183,20 @@
 		/obj/item/food/nugget = TRUE,
 	)
 
+/datum/bounty/item/chef/random
+	name = "Random recipe"
+	description = "A prestigious food critic is visiting CentCom, and wants to sample Space Station 13's finest \[recipe]. Nanotrasen's culinary reputation depends on you!"
+
+/datum/bounty/item/chef/random/New()
+	var/blacklist = list(/datum/crafting_recipe/food, /datum/crafting_recipe/food/cak)
+	var/possiblefoods = typesof(/datum/crafting_recipe/food) - blacklist
+	var/datum/crafting_recipe/food/targetrecipe = pick(possiblefoods)
+	var/obj/item/food/foodpath = initial(targetrecipe.result)
+
+	name = initial(foodpath.name)
+	description = "A prestigious food critic is visiting CentCom, and wants to sample Space Station 13's finest [initial(foodpath.name)]. Nanotrasen's culinary reputation depends on you!"
+	reward = 2000 * (initial(foodpath.crafting_complexity) + 1)
+	wanted_types = list(
+		foodpath = TRUE
+	)
+	. = ..()
