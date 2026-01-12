@@ -176,7 +176,7 @@
 	return FALSE //would logically be TRUE, but we don't want AI swarmers eating player spawn chances.
 
 /obj/effect/mob_spawn/swarmer/IntegrateAmount()
-	return 20
+	return SWARMER_REPLICATE_COST
 
 /turf/closed/indestructible/swarmer_act()
 	return FALSE
@@ -403,7 +403,7 @@
 	return ..()
 
 /obj/item/deactivated_swarmer/IntegrateAmount()
-	return 50
+	return SWARMER_REPLICATE_COST
 
 /obj/machinery/hydroponics/soil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, span_warning("This object does not contain enough materials to work with."))
@@ -423,6 +423,10 @@
 
 /obj/machinery/shieldwall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, span_warning("This object does not contain solid matter. Aborting."))
+	return FALSE
+
+/obj/machinery/cryopod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, span_warning("This object contains too much frozen organic matter to be processed. Aborting."))
 	return FALSE
 
 ////END CTRL CLICK FOR SWARMERS////
@@ -544,7 +548,7 @@
 
 /obj/effect/temp_visual/swarmer/disintegration
 	icon_state = "disintegrate"
-	duration = 10
+	duration = 1 SECONDS
 
 /obj/effect/temp_visual/swarmer/disintegration/Initialize(mapload)
 	. = ..()
@@ -552,11 +556,11 @@
 
 /obj/effect/temp_visual/swarmer/dismantle
 	icon_state = "dismantle"
-	duration = 25
+	duration = 2.5 SECONDS
 
 /obj/effect/temp_visual/swarmer/integrate
 	icon_state = "integrate"
-	duration = 5
+	duration = 0.5 SECONDS
 
 /obj/structure/swarmer //Default swarmer effect object visual feedback
 	name = "swarmer ui"
@@ -637,7 +641,7 @@
 
 /obj/effect/temp_visual/shock_trap_activate
 	randomdir = FALSE
-	duration = 6
+	duration = 0.6 SECONDS
 	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
 	icon_state = "energy_ball"
 	pixel_x = -32
@@ -650,11 +654,11 @@
 	if(locate(/obj/structure/swarmer/trap) in loc)
 		to_chat(src, span_warning("There is already a trap here. Aborting."))
 		return
-	if(resources < 2)
+	if(resources < SWARMER_TRAP_COST)
 		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
 	if(do_after(src, 2 SECONDS))
-		Fabricate(/obj/structure/swarmer/trap, 2)
+		Fabricate(/obj/structure/swarmer/trap, SWARMER_TRAP_COST)
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateBarricade()
@@ -664,11 +668,11 @@
 	if(locate(/obj/structure/swarmer/blockade) in loc)
 		to_chat(src, span_warning("There is already a blockade here. Aborting."))
 		return
-	if(resources < 2)
+	if(resources < SWARMER_BLOCKADE_COST)
 		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
 	if(do_after(src, 1 SECONDS))
-		Fabricate(/obj/structure/swarmer/blockade, 2)
+		Fabricate(/obj/structure/swarmer/blockade, SWARMER_BLOCKADE_COST)
 
 
 /obj/structure/swarmer/blockade
@@ -689,7 +693,7 @@
 	set category = "Swarmer"
 	set desc = "Creates a shell for a new swarmer. Swarmers will self activate."
 	to_chat(src, span_info("We are attempting to replicate ourselves. We will need to stand still until the process is complete."))
-	if(resources < 20)
+	if(resources < SWARMER_REPLICATE_COST)
 		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
 	if(!isturf(loc))
@@ -697,7 +701,7 @@
 		return
 	if(do_after(src, 10 SECONDS))
 		var/createtype = SwarmerTypeToCreate()
-		if(createtype && Fabricate(createtype, 20))
+		if(createtype && Fabricate(createtype, SWARMER_REPLICATE_COST))
 			playsound(loc,'sound/items/poster_being_created.ogg',50, 1, -1)
 
 

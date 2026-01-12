@@ -209,6 +209,12 @@ GLOBAL_LIST_INIT(ai_employers, list(
 
 #define ABDUCTOR_MAX_TEAMS 4
 
+// Swarmers
+// ------------------------------------
+#define SWARMER_REPLICATE_COST 20
+#define SWARMER_BLOCKADE_COST 2
+#define SWARMER_TRAP_COST 2
+
 // Antagonist Leave Modes
 // ------------------------------------
 /// The antagonist is free to leave and will simply be removed upon
