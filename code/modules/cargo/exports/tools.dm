@@ -6,10 +6,10 @@
 	)
 	include_subtypes = FALSE
 
-/datum/export/singulo/total_printout(datum/export_report/ex, notes = TRUE)
+/datum/export/singulo/items_sold(datum/export_report/ex, notes = TRUE)
 	. = ..()
 	if(. && notes)
-		. += " ERROR: Invalid object detected."
+		.[1] += " (ERROR: Invalid object detected)"
 
 /datum/export/singulo/tesla //see above
 	unit_name = "energy ball"
@@ -17,7 +17,7 @@
 		/obj/anomaly/energy_ball = TRUE,
 	)
 
-/datum/export/singulo/tesla/total_printout(datum/export_report/ex, notes = TRUE)
+/datum/export/singulo/tesla/items_sold(datum/export_report/report, notes)
 	. = ..()
 	if(. && notes)
-		. += " ERROR: Unscheduled energy ball delivery detected."
+		.[1] += " (ERROR: Unscheduled energy ball delivery detected)"

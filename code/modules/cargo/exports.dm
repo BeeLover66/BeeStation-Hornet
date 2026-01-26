@@ -28,6 +28,18 @@ then the player gets the profit from selling his own wasted time.
 	/// Associative list of [export instance => total value of sold items]
 	var/list/total_value = list()
 
+/datum/export_report/proc/total_value_sum()
+	return values_sum(total_value)
+
+/datum/export_report/proc/total_printout(notes = TRUE)
+	var/list/items_sold = list()
+
+	for(var/datum/export/export in exported_atoms)
+		items_sold += export.items_sold(exported_atoms[export])
+
+	return "+[total_value_sum()] credits: Received [english_list(items_sold)]."
+
+
 // external_report works as "transaction" object, pass same one in if you're doing more than one export in single go
 /proc/export_item_and_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, delete_unsold = FALSE, dry_run=FALSE, datum/export_report/external_report)
 	var/list/contents = AM.GetAllContents()
@@ -208,10 +220,10 @@ then the player gets the profit from selling his own wasted time.
 		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[sold_item.type]", "[export_value]"))
 	return TRUE
 
-/datum/export/proc/items_sold(datum/export_report/report, notes = TRUE)
+/datum/export/proc/items_sold(list/exported_atoms, notes = TRUE)
 	// Count occurrences using associative list
 	var/list/counts = list()
-	for(var/atom/thing in report.exported_atoms[src])
+	for(var/atom/thing in exported_atoms)
 		if(thing.name)
 			counts[thing.name] = (counts[thing.name] || 0) + 1
 
@@ -230,49 +242,7 @@ then the player gets the profit from selling his own wasted time.
 // Called before the end of current export cycle.
 // It must always return something if the datum adds or removes any credts.
 /datum/export/proc/total_printout(datum/export_report/report, notes = TRUE)
-	if(!report.total_amount[src] || !report.total_value[src])
-		return ""
-
-	var/total_value = report.total_value[src]
-	var/msg = "[total_value] credits: Received "
-	if(total_value > 0)
-		msg = "+" + msg
-
-	// Count occurrences using associative list
-	var/list/counts = list()
-	for(var/atom/thing in report.exported_atoms[src])
-		if(thing.name)
-			counts[thing.name] = (counts[thing.name] || 0) + 1
-
-	// Turn our list into a nice string
-	var/list/item_strings = list()
-	for(var/name in counts)
-		var/count = counts[name]
-		if(count > 1)
-			item_strings += "[count] [name]s"
-		else
-			item_strings += name
-
-	// Join with commas, last item with "and"
-	var/item_msg = ""
-	var/counter = 0
-	for(var/item in item_strings)
-		counter += 1
-		if(counter == 1)
-			item_msg = item
-		else if(counter == item_strings.len)
-			item_msg = item_msg + " and " + item
-		else
-			item_msg = item_msg + ", " + item
-
-	msg += item_msg
-
-	// If our export has a custom message, add it to the end.
-	if(message)
-		msg += " [message]"
-
-	msg += "."
-	return msg
+	return "TODO remove"
 
 GLOBAL_LIST_INIT(exports_list, setup_exports())
 

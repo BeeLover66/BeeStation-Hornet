@@ -199,15 +199,11 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	if(matched_bounty)
 		msg += "Bounty items received. An update has been sent to all bounty consoles. "
 
-	var/value_sold = 0
-	var/list/items_sold = list()
 
-	for(var/datum/export/export in report.exported_atoms)
-		value_sold += report.total_value[export]
-		items_sold += export.items_sold(report)
+	var/value_sold = report.total_value_sum()
 
 	D.adjust_money(value_sold)
-	msg += "+[value_sold] credits: Received [english_list(items_sold)]."
+	msg += report.total_printout()
 
 	SSshuttle.centcom_message = msg
 	investigate_log("Shuttle contents sold for [value_sold] credits. Exported: [SSshuttle.centcom_message || "none."]", INVESTIGATE_CARGO)
