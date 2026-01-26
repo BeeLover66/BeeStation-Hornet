@@ -180,7 +180,6 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 
 /obj/docking_port/mobile/supply/proc/sell()
 	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
-	var/presale_points = D.account_balance
 
 	var/msg = ""
 	var/matched_bounty = FALSE
@@ -200,16 +199,18 @@ GLOBAL_LIST_INIT(whitelisted_cargo_types, typecacheof(list(
 	if(matched_bounty)
 		msg += "Bounty items received. An update has been sent to all bounty consoles. "
 
-	for(var/datum/export/export in report.exported_atoms)
-		var/export_text = export.total_printout(report)
-		if(!export_text)
-			continue
+	var/value_sold = 0
+	var/list/items_sold = list()
 
-		msg += export_text + "\n"
-		D.adjust_money(report.total_value[export])
+	for(var/datum/export/export in report.exported_atoms)
+		value_sold += report.total_value[export]
+		items_sold += export.items_sold(report)
+
+	D.adjust_money(value_sold)
+	msg += "+[value_sold] credits: Received [english_list(items_sold)]."
 
 	SSshuttle.centcom_message = msg
-	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Exported: [SSshuttle.centcom_message || "none."]", INVESTIGATE_CARGO)
+	investigate_log("Shuttle contents sold for [value_sold] credits. Exported: [SSshuttle.centcom_message || "none."]", INVESTIGATE_CARGO)
 
 
 //	Generates a box of mail depending on our exports and imports.

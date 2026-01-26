@@ -208,6 +208,24 @@ then the player gets the profit from selling his own wasted time.
 		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[sold_item.type]", "[export_value]"))
 	return TRUE
 
+/datum/export/proc/items_sold(datum/export_report/report, notes = TRUE)
+	// Count occurrences using associative list
+	var/list/counts = list()
+	for(var/atom/thing in report.exported_atoms[src])
+		if(thing.name)
+			counts[thing.name] = (counts[thing.name] || 0) + 1
+
+	// Assemble the list of items from the list of counts
+	var/list/item_strings = list()
+	for(var/name in counts)
+		var/count = counts[name]
+		if(count > 1)
+			item_strings += "[count]x [name]"
+		else
+			item_strings += name
+
+	return item_strings
+
 // Total printout for the cargo console.
 // Called before the end of current export cycle.
 // It must always return something if the datum adds or removes any credts.
@@ -222,7 +240,7 @@ then the player gets the profit from selling his own wasted time.
 
 	// Count occurrences using associative list
 	var/list/counts = list()
-	for(var/atom/thing in report.exported_atoms)
+	for(var/atom/thing in report.exported_atoms[src])
 		if(thing.name)
 			counts[thing.name] = (counts[thing.name] || 0) + 1
 
