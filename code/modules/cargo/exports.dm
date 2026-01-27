@@ -37,7 +37,7 @@ then the player gets the profit from selling his own wasted time.
 	for(var/datum/export/export in exported_atoms)
 		items_sold += export.items_sold(exported_atoms[export])
 
-	return "+[total_value_sum()] credits: Received [english_list(items_sold)]."
+	return "+[total_value_sum()] credits:[notes ? " Received" : ""] [english_list(items_sold)]."
 
 
 // external_report works as "transaction" object, pass same one in if you're doing more than one export in single go

@@ -323,20 +323,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 		return
 
 	status_report = "Predicted value: "
-	var/value = 0
 	var/datum/export_report/ex = new
 	for(var/atom/movable/AM in get_turf(pad))
 		if(AM == pad)
 			continue
 		export_item_and_contents(AM, EXPORT_CARGO | EXPORT_CONTRABAND, dry_run = TRUE, external_report = ex)
 
-	for(var/datum/export/E in ex.total_amount)
-		status_report += E.total_printout(ex,notes = FALSE)
-		status_report += " "
-		value += ex.total_value[E]
-
-	if(!value)
-		status_report += "0"
+	status_report += ex.total_printout(notes = FALSE)
 
 /obj/machinery/computer/piratepad_control/proc/send()
 	if(!sending)
@@ -349,17 +342,10 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 			continue
 		export_item_and_contents(AM, EXPORT_CARGO | EXPORT_CONTRABAND, delete_unsold = FALSE, external_report = ex)
 
-	status_report = "Sold: "
-	var/value = 0
-	for(var/datum/export/E in ex.total_amount)
-		var/export_text = E.total_printout(ex,notes = FALSE) //Don't want nanotrasen messages, makes no sense here.
-		if(!export_text)
-			continue
+	status_report = "Sold: " + ex.total_printout(notes = FALSE)  // Don't want nanotrasen messages, makes no sense here.
+	var/value = ex.total_value_sum()
 
-		status_report += export_text
-		status_report += " "
-		value += ex.total_value[E]
-
+	// Update total report, which tracks sold items and value for the whole round
 	if(!total_report)
 		total_report = ex
 	else
@@ -369,9 +355,6 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 			total_report.total_value[E] += ex.total_value[E]
 
 	points += value
-
-	if(!value)
-		status_report += "Nothing"
 
 	pad.visible_message(span_notice("[pad] activates!"))
 	flick(pad.sending_state,pad)
